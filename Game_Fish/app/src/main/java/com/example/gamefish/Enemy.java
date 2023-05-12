@@ -38,7 +38,7 @@ public class Enemy extends Player {
         velocityY=0;
         this.direction =(int)direction;
         Random random= new Random();
-        randomNum = random.nextInt(3) + 1;
+        randomNum = random.nextInt(4) + 1;
 
     }
     double randomValue()
@@ -61,6 +61,8 @@ public class Enemy extends Player {
 
             case 3:
                return R.drawable.fish3;
+            case 4:
+                return R.drawable.fish3;
 
         }
         else
@@ -72,6 +74,7 @@ public class Enemy extends Player {
                 case 2:
                     return R.drawable.leftfish2;
                 case 3:return R.drawable.leftfish4;
+                case 4:return R.drawable.leftfish3;
             }
         }
         return R.drawable.fish1;

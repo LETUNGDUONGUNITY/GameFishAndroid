@@ -29,7 +29,7 @@ public class GameUI {
         int color = ContextCompat.getColor(context, androidx.cardview.R.color.cardview_light_background);
         paint.setColor(color);
         paint.setTextSize(60);
-        canvas.drawText(""+score+"              POINT",
+        canvas.drawText(""+score+"           POINT",
                 100, 50+bitmap.getHeight()/2+10, paint);
     }
 }

@@ -178,7 +178,10 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     }
     public double getRandomY()
     {
-        Random random =new Random();
-        return random.nextDouble()*500;
+        Random random = new Random();
+        double minValue = 150;
+        double maxValue = 650;
+        double range = maxValue - minValue;
+        return (random.nextDouble() * range) + minValue;
     }
 }

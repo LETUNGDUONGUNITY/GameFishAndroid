@@ -1,6 +1,6 @@
 package com.example.gamefish;
 
-import android.app.Activity;
+import android.app.Fragment;
 
-public class firstfragment extends Activity {
+public class SecondFragment extends Fragment {
 }

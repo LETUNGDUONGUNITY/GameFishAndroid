@@ -5,8 +5,8 @@ import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
-
 import com.example.gamefish.Game;
+import com.example.gamefish.databinding.ActivityMainBinding;
 
 /**
  * MainActivity is the entry point to our application.
@@ -14,15 +14,16 @@ import com.example.gamefish.Game;
 public class MainActivity extends Activity {
 
     private Game game;
-
+    private ActivityMainBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("MainActivity.java", "onCreate()");
         super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+      //  setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         // Set content view to game, so that objects in the Game class can be rendered to the screen
-        game = new Game(this);
-        setContentView(game);
+       // game = new Game(this);
+        binding= ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
     }
 
     @Override
