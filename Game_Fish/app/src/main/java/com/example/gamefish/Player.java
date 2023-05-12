@@ -22,7 +22,7 @@ public class Player extends GameObject {
             return false;
     }
 
-    public void draw(Canvas canvas,GameDisplay gameDisplay)
+    public void draw(Canvas canvas)
     {
 
     }

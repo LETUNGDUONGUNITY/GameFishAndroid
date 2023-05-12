@@ -1,9 +1,8 @@
 package com.example.gamefish;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -23,11 +22,15 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     public background background;
     private int numberOfSpellsToCast = 0;
     private int joystickPointerId = 0;
-    private  final  GameDisplay gameDisplay;
     private ArrayList<Spell> spellList= new ArrayList<Spell>();
     private ArrayList<Enemy> enemies= new ArrayList<Enemy>();
     public double width;
     public double height;
+    public double leftConstraint;
+    public double rightConstraint;
+    public int velocity;
+    public double randomX;
+    public double randomY;
     public Game(Context context) {
         super(context);
         SurfaceHolder surfaceHolder = getHolder();
@@ -37,10 +40,10 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         mainContext=context;
         background= new background(context);
         performance= new Performance(context,gameLoop);
-        cannon= new Cannon(2*500,500,context);
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        gameDisplay = new GameDisplay(displayMetrics.widthPixels, displayMetrics.heightPixels, cannon);
+           cannon= new Cannon(2*500,500,context);
+//        DisplayMetrics displayMetrics = new DisplayMetrics();
+//        ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+//        gameDisplay = new GameDisplay(displayMetrics.widthPixels, displayMetrics.heightPixels, cannon);
         setFocusable(true);
     }
 
@@ -57,6 +60,8 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         width= getWidth();
         height=getHeight();
         gameLoop.startLoop();
+        leftConstraint = 300;
+        rightConstraint=width-300;
     }
 
     @Override
@@ -72,13 +77,13 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     public  void update() {
 
         cannon.update();
-        gameDisplay.update();
         if (Enemy.readyToSpawn()) {
-            double posX = width - 300;
-            Random random = new Random();
-            int position = random.nextInt(500);
-            double posY = position;
-            enemies.add(new Enemy(getContext(), posX, posY));
+            double posX = getRandomX();
+            double posY =getRandomY();
+            double direction;
+            direction = (posX == leftConstraint) ? 1 : -1;
+            Enemy enemy= new Enemy(getContext(),posX,posY,direction);
+            enemies.add(enemy);
         }
         for (Enemy enemy : enemies) {
             enemy.update();
@@ -90,22 +95,14 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         for (Spell spell : spellList) {
             spell.update();
         }
-//        Iterator<Spell> iteratorSpell = spellList.iterator();
-//        while (iteratorSpell.hasNext()) {
-//            Spell spell = iteratorSpell.next();
-//            // Remove enemy if it collides with a spell
-//            if (spell.isOutSide(gameDisplay.widthPixels,gameDisplay.heightPixels)) {
-//                iteratorSpell.remove();
-//                break;
-//            }
-//        }
+
         Iterator<Enemy> iteratorEnemy = enemies.iterator();
         while (iteratorEnemy.hasNext()) {
             Enemy enemy = iteratorEnemy.next();
             Iterator<Spell> iteratorSpell = spellList.iterator();
             while (iteratorSpell.hasNext()) {
                 Spell spell = iteratorSpell.next();
-                if (spell.isOutSide(gameDisplay.widthPixels, gameDisplay.heightPixels)) {
+                if (spell.isOutSide((int)width, (int)height)) {
                     iteratorSpell.remove();
                     break;
 
@@ -124,15 +121,17 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         super.draw(canvas);
         performance.draw(canvas);
         background.draw(canvas);
-        cannon.draw(canvas,gameDisplay);
+
         for (Spell spell : spellList) {
-            spell.draw(canvas,gameDisplay);
+            spell.draw(canvas);
         }
         for (Enemy enemy : enemies) {
-            enemy.draw(canvas, gameDisplay);
+            enemy.draw(canvas);
         }
+        cannon.draw(canvas);
 
     }
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
@@ -160,4 +159,23 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         return super.onTouchEvent(event);
     }
 
+    public double getRandomX()
+    {
+        Random random = new Random();
+        int value = random.nextInt(2);
+
+        if(value==0)
+        {
+            return rightConstraint;
+
+        }
+        else {
+            return leftConstraint;
+        }
+    }
+    public double getRandomY()
+    {
+        Random random =new Random();
+        return random.nextDouble()*500;
+    }
 }

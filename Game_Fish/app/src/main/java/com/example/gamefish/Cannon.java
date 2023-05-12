@@ -4,8 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.content.Context;
-import android.graphics.Matrix;
-import android.graphics.Paint;
 
 
 public class Cannon extends GameObject {
@@ -27,8 +25,8 @@ public class Cannon extends GameObject {
        // bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.my_image);
     }
 
-    public void draw(Canvas canvas,GameDisplay gameDisplay) {
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.my_image);
+    public void draw(Canvas canvas) {
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.cannon);
         int bitmapWidth = bitmap.getWidth();
         int bitmapHeight = bitmap.getHeight();
         int canvasWidth = canvas.getWidth();

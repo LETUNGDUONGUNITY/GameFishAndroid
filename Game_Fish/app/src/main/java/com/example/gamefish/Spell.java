@@ -31,7 +31,7 @@ public class Spell extends Player {
         positionY = positionY + velocityY;
     }
     @Override
-    public void draw(Canvas canvas, GameDisplay gameDisplay)
+    public void draw(Canvas canvas)
     {
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.bullet3);
         int width=bitmap.getWidth();
