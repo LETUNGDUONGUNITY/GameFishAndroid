@@ -20,6 +20,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     public Context mainContext;
     public Performance performance;
     public background background;
+    public GameUI gameUI;
     private int numberOfSpellsToCast = 0;
     private int joystickPointerId = 0;
     private ArrayList<Spell> spellList= new ArrayList<Spell>();
@@ -38,6 +39,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         Log.d("MainActivity.java", "Game Start()");
         gameLoop = new GameLoop(this, surfaceHolder);
         mainContext=context;
+        gameUI=new GameUI(context);
         background= new background(context);
         performance= new Performance(context,gameLoop);
            cannon= new Cannon(2*500,500,context);
@@ -110,6 +112,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
                 if(Player.isColliding(spell, enemy)) {
                     iteratorSpell.remove();
                     iteratorEnemy.remove();
+                    gameUI.score+=1;
                     break;
                 }
             }
@@ -121,7 +124,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         super.draw(canvas);
         performance.draw(canvas);
         background.draw(canvas);
-
+        gameUI.draw(canvas);
         for (Spell spell : spellList) {
             spell.draw(canvas);
         }

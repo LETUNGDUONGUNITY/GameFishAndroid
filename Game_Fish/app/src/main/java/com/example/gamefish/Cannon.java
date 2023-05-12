@@ -26,7 +26,7 @@ public class Cannon extends GameObject {
     }
 
     public void draw(Canvas canvas) {
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.cannon);
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.cannon2);
         int bitmapWidth = bitmap.getWidth();
         int bitmapHeight = bitmap.getHeight();
         int canvasWidth = canvas.getWidth();
