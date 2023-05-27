@@ -9,5 +9,14 @@
         android:id="@+id/testfragment"
         android:name="com.example.gamefish.testfragment"
         android:label="fragment_testfragment"
-        tools:layout="@layout/fragment_testfragment" />
+        tools:layout="@layout/fragment_testfragment" >
+        <action
+            android:id="@+id/action_testfragment_to_blankFragment"
+            app:destination="@id/blankFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/blankFragment"
+        android:name="com.example.gamefish.BlankFragment"
+        android:label="fragment_blank2"
+        tools:layout="@layout/fragment_blank2" />
 </navigation>

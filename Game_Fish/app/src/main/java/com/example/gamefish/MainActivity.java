@@ -5,6 +5,10 @@ import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
+
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import com.example.gamefish.Game;
 import com.example.gamefish.databinding.ActivityMainBinding;
 
@@ -24,6 +28,9 @@ public class MainActivity extends Activity {
        // game = new Game(this);
         binding= ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+// trong Activity
+        NavController navController = Navigation.findNavController(this, R.id.fragmentContainerView2);
     }
 
     @Override
